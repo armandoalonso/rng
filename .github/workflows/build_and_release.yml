@@ -27,7 +27,7 @@ jobs:
 
       - name: Auto Generate Documentation
         run: |
-          npm run docs
+          npm run doc
       
       - name: Commit Documentation
         run: |
