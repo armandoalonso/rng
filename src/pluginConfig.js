@@ -3,13 +3,15 @@ module.exports = {
   addonType: "plugin",
   id: "piranha305_rng",
   name: "RNG",
-  version: "1.0.0.0",
+  version: "1.0.0.1",
   category:
     "other",
   author: "piranha305",
-  website: "https://www.construct.net",
-  documentation: "https://www.construct.net",
+  website: "https://piranha305.itch.io/",
+  documentation: "https://github.com/armandoalonso/rng/blob/main/README.md",
   description: "Provides random utilities functions", 
+  addonUrl: "https://www.construct.net/en/make-games/addons/1075/rng",
+  githubUrl: "https://github.com/armandoalonso/rng",
   // icon: "icon.svg", // defaults to "icon.svg" if omitted
   // world, object, dom
   type: "object",

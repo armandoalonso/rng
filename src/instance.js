@@ -7,6 +7,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this.CHAR_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
       this.SPECIAL_CHARS = "!@#$%^&*()[]";
 
+      // get prng class from globalThis
       this.mersenneTwister = globalThis._P305.mersenneTwister;
 
       this.rng = null;
