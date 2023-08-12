@@ -351,6 +351,10 @@ function acesFromConfig(config) {
   return aces;
 }
 
+function generateMDLinkFromText(text) {
+  return text.replace(/ /g, "-").toLowerCase();
+}
+
 const config = require("./src/pluginConfig.js");
 
 const addonJson = addonFromConfig(config);
@@ -364,117 +368,7 @@ const aces = acesFromConfig(config);
 // write addon documentation to a markdown file (RAEDME.md)
 const readme = [];
 readme.push(`# ${config.name}`);
-readme.push(`## ${config.description}`);
-
-readme.push(`## Properties`);
-readme.push(`| Property | Description |`);
-readme.push(`| --- | --- |`);
-config.properties.forEach((property) => {
-  readme.push(`| ${property.name} | ${property.desc} |`);
-});
-readme.push(``);
-
-// explain each property
-config.properties.forEach((property) => {
-  readme.push(`### ${property.name}`);
-  readme.push(`**Description:** ${property.desc}`);
-  readme.push(`**Type:** ${property.type}`);
-  if (property.type === "combo") {
-    readme.push(`**Options:**`);
-    property.options.items.forEach((item) => {
-      const key = Object.keys(item)[0];
-      readme.push(`- ${key}: ${item[key]}`);
-    });
-  }
-  if (property.type === "link") {
-    readme.push(`**Link Text:** ${property.linkText}`);
-  }
-  readme.push(``);
-});
-
-readme.push(``);
-readme.push(`## Actions`);
-readme.push(`| Action | Description |`);
-readme.push(`| --- | --- |`);
-Object.keys(config.Acts).forEach((key) => {
-  const action = config.Acts[key];
-  readme.push(`| ${action.listName} | ${action.description} |`);
-});
-readme.push(``);
-
-//explain each eaction
-Object.keys(config.Acts).forEach((key) => {
-  const action = config.Acts[key];
-  readme.push(`### ${action.listName}`);
-  readme.push(`**Description:** ${action.description}`);
-  readme.push(`**Parameters:**`);
-  action.params.forEach((param) => {
-    readme.push(`- ${param.name}: ${param.desc}`);
-    if (param.type === "combo") {
-      readme.push(`  - Options:`);
-      param.items.forEach((item) => {
-        const key = Object.keys(item)[0];
-        readme.push(`    - ${key}: ${item[key]}`);
-      });
-    }
-  });
-});
-
-readme.push(``);
-readme.push(`## Conditions`);
-readme.push(`| Condition | Description |`);
-readme.push(`| --- | --- |`);
-Object.keys(config.Cnds).forEach((key) => {
-  const condition = config.Cnds[key];
-  readme.push(`| ${condition.listName} | ${condition.description} |`);
-});
-
-//explain each condition
-Object.keys(config.Cnds).forEach((key) => {
-  const condition = config.Cnds[key];
-  readme.push(`### ${condition.listName}`);
-  readme.push(`**Description:** ${condition.description}`);
-  readme.push(`**Parameters:**`);
-  condition.params.forEach((param) => {
-    readme.push(`- ${param.name}: ${param.desc}`);
-    //TODO: is trigger? other cnd options?
-    if (param.type === "combo") {
-      readme.push(`  - Options:`);
-      param.items.forEach((item) => {
-        const key = Object.keys(item)[0];
-        readme.push(`    - ${key}: ${item[key]}`);
-      });
-    }
-  });
-});
-
-readme.push(``);
-readme.push(`## Expressions`);
-readme.push(`| Expression | Description |`);
-readme.push(`| --- | --- |`);
-Object.keys(config.Exps).forEach((key) => {
-  const expression = config.Exps[key];
-  readme.push(`| ${key} | ${expression.description} |`);
-});
-readme.push(``);
-
-//explain each expression
-Object.keys(config.Exps).forEach((key) => {
-  const expression = config.Exps[key];
-  readme.push(`### ${key}`);
-  readme.push(`**Description:** ${expression.description}`);
-  readme.push(`**Parameters:**`);
-  expression.params.forEach((param) => {
-    readme.push(`- ${param.name}: ${param.desc}`);
-    if (param.type === "combo") {
-      readme.push(`  - Options:`);
-      param.items.forEach((item) => {
-        const key = Object.keys(item)[0];
-        readme.push(`    - ${key}: ${item[key]}`);
-      });
-    }
-  });
-});
+readme.push(`${config.description}`);
 
 readme.push(``);
 
@@ -498,6 +392,149 @@ readme.push(`The build uses the pluginConfig file to generate everything else.`)
 readme.push(
   `The main files you may want to look at would be instance.js and scriptInterface.js`
 );
+
+readme.push(`## Properties`);
+readme.push(`| Property | Description |`);
+readme.push(`| --- | --- |`);
+//have the property name column of the table be a link to the property
+config.properties.forEach((property) => {
+  readme.push(
+    // link to property has to reploace spaces with hypens and be lowercase
+    `| [${property.name}](#${generateMDLinkFromText(property.name)}) | ${property.desc} |`
+  ); 
+});
+readme.push(``);
+
+// explain each property, make sure to link to it
+config.properties.forEach((property) => {
+  readme.push(`### ${property.name}`);
+  readme.push(`**Description:** ${property.desc}`);
+  readme.push(``);
+  readme.push(`**Type:** ${property.type}`);
+  if (property.type === "combo") {
+    readme.push(`**Options:**`);
+    property.options.items.forEach((item) => {
+      const key = Object.keys(item)[0];
+      readme.push(`- ${key}: ${item[key]}`);
+    });
+  } else if (property.type === "link") {
+    readme.push(`**Link Text:** ${property.linkText}`);
+  }
+});
+
+readme.push(``);
+readme.push(`## Actions`);
+readme.push(`| Action | Description |`);
+readme.push(`| --- | --- |`);
+//have the property name column of the table be a link to the property
+Object.keys(config.Acts).forEach((key) => {
+  const action = config.Acts[key];
+  readme.push(
+    `| [${action.listName}](#${generateMDLinkFromText(action.listName)}) | ${action.description} |`
+  );
+});
+readme.push(``);
+
+//explain each eaction
+Object.keys(config.Acts).forEach((key) => {
+  const action = config.Acts[key];
+  readme.push(`### ${action.listName}`);
+  readme.push(`**Description:** ${action.description}`);
+
+  // only display the is async and is trigger if they are true
+  if (action.isAsync) {
+    readme.push(`**Is Async:** ${action.isAsync}`);
+  } 
+
+  readme.push(``);
+  readme.push(`**Parameters:**`);
+  action.params.forEach((param) => {
+    readme.push(`- ${param.name}: ${param.desc}`);
+    if (param.type === "combo") {
+      readme.push(`  - Options:`);
+      param.items.forEach((item) => {
+        const key = Object.keys(item)[0];
+        readme.push(`    - ${key}: ${item[key]}`);
+      });
+    }
+  });
+});
+
+readme.push(``);
+readme.push(`## Conditions`);
+readme.push(`| Condition | Description |`);
+readme.push(`| --- | --- |`);
+//have the property name column of the table be a link to the property
+Object.keys(config.Cnds).forEach((key) => {
+  const condition = config.Cnds[key];
+  readme.push(
+    `| [${condition.listName}](#${generateMDLinkFromText(condition.listName)}) | ${condition.description} |`
+  );
+});
+
+//explain each condition
+Object.keys(config.Cnds).forEach((key) => {
+  const condition = config.Cnds[key];
+  readme.push(`### ${condition.listName}`);
+  readme.push(`**Description:** ${condition.description}`);
+  readme.push(``);
+  if (condition.isTrigger) {
+    readme.push(`**Is Trigger:** ${action.isTrigger}`);
+  }
+  if(condition.islooping) {
+    readme.push(`**Is Looping:** ${action.islooping}`);
+  }
+
+  readme.push(`**Parameters:**`);
+  condition.params.forEach((param) => {
+    readme.push(`- ${param.name}: ${param.desc}`);
+    //TODO: is trigger? other cnd options?
+    if (param.type === "combo") {
+      readme.push(`  - Options:`);
+      param.items.forEach((item) => {
+        const key = Object.keys(item)[0];
+        readme.push(`    - ${key}: ${item[key]}`);
+      });
+    }
+  });
+});
+
+readme.push(``);
+readme.push(`## Expressions`);
+readme.push(`| Expression | Description |`);
+readme.push(`| --- | --- |`);
+//have the property name column of the table be a link to the property
+Object.keys(config.Exps).forEach((key) => {
+  const expression = config.Exps[key];
+  readme.push(
+    `| [${key}](#${generateMDLinkFromText(key)}) | ${expression.description} |`
+  );
+});
+readme.push(``);
+
+//explain each expression
+Object.keys(config.Exps).forEach((key) => {
+  const expression = config.Exps[key];
+  readme.push(`### ${key}`);
+  readme.push(`**Description:** ${expression.description}`);
+  readme.push(`**Return Type:** ${expression.returnType}`);
+  readme.push(``);
+  if(expression.isVariadicParam) {
+    readme.push(`**Is Variadic Param:** ${expression.isVariadicParam}`);
+  }
+  readme.push(`**Parameters:**`);
+  expression.params.forEach((param) => {
+    readme.push(`- ${param.name}: ${param.desc}`);
+    if (param.type === "combo") {
+      readme.push(`  - Options:`);
+      param.items.forEach((item) => {
+        const key = Object.keys(item)[0];
+        readme.push(`    - ${key}: ${item[key]}`);
+      });
+    }
+  });
+});
+
 
 fs.writeFileSync(path.join(__dirname, "README.md"), readme.join("\n"));
 
