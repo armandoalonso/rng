@@ -9,7 +9,7 @@ module.exports = {
   author: "piranha305",
   website: "https://www.construct.net",
   documentation: "https://www.construct.net",
-  description: "RNG - Provides random utilities functions", 
+  description: "Provides random utilities functions", 
   // icon: "icon.svg", // defaults to "icon.svg" if omitted
   // world, object, dom
   type: "object",
