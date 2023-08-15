@@ -9,7 +9,7 @@ module.exports = {
   author: "piranha305",
   website: "https://piranha305.itch.io/",
   documentation: "https://github.com/armandoalonso/rng/blob/main/README.md",
-  description: "Provides random utilities functions", 
+  description: "Provides random utilities Actions / Conditions / Expressions for Construct 3, include a Seperate Random Number Generator based on Mersenne Twister", 
   addonUrl: "https://www.construct.net/en/make-games/addons/1075/rng",
   githubUrl: "https://github.com/armandoalonso/rng",
   // icon: "icon.svg", // defaults to "icon.svg" if omitted
