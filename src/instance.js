@@ -179,16 +179,23 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return values.join(",");
     }
 
-    _LoadJsonData(json) {
-      this.json_data = JSON.parse(json);
-      console.log(this.json_data);
+    _LoadJsonData(tag, json) {
+      if(this.json_data[tag] === undefined) {
+        this.json_data[tag] = {};
+      }
+
+      this.json_data[tag] = JSON.parse(json);
     }
 
-    _ParseJsoKey(key) {
-      const keys = key.split('.');
-      let value = this.json_data;
+    _ParseJsoKey(tag, key) {
+      if(this.json_data[tag] === undefined) {
+        console.warn(`JSON tag "${tag}" does not exist.`);
+        return null;
+      }
 
-      console.log(value);
+      const keys = key.split('.');
+      let value = this.json_data[tag];
+
       for (let i = 0; i < keys.length; i++) {
         value = value[keys[i]];
         if (value === undefined) {
@@ -198,8 +205,12 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return value;
     }
 
-    _PickRandomFromJsonArray(path) {
-      const values = this._ParseJsoKey(path);
+    _PickRandomFromJsonArray(tag, path) {
+      if(this.json_data[tag] === undefined) {
+        console.warn(`JSON tag "${tag}" does not exist.`);
+        return null;
+      }
+      const values = this._ParseJsoKey(tag, path);
 
       if (values === null) {
         console.warn(`JSON path "${path}" does not exist.`);
@@ -235,6 +246,9 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       
       if (this.replace_system_seed) {
         this._rt.SetRandomNumberGeneratorCallback(() => this.rng.random());
+      }
+      else {
+        this._rt.SetRandomNumberGeneratorCallback(() => Math.random());
       }
     }
 

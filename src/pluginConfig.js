@@ -3,7 +3,7 @@ module.exports = {
   addonType: "plugin",
   id: "piranha305_rng",
   name: "RNG",
-  version: "1.0.0.1",
+  version: "1.0.0.2",
   category:
     "other",
   author: "piranha305",
@@ -209,6 +209,13 @@ module.exports = {
       deprecated: false,
       params: [
         {
+          id: "tag",
+          name: "Tag",
+          desc: "Tag of the JSON",
+          type: "string",
+          value: "default",
+        },
+        {
           id: "json",
           name: "JSON",
           desc: "The JSON to load",
@@ -217,7 +224,7 @@ module.exports = {
         },
       ],
       listName: "Load JSON Data",
-      displayText: "Load JSON Data {0}",
+      displayText: "Load JSON Data {1} with tag ([b]{0}[/b])",
       description: "Loads JSON data",
     }
     /*
@@ -659,6 +666,13 @@ module.exports = {
       returnType: 'string',
       isVariadicParameters: false,
       params: [
+        {
+          "id": "tag",
+          "name": "Tag",
+          "desc": "The tag of the JSON",
+          "type": "string",
+          "value": "default"
+        },
         {
           "id": "path",
           "name": "Path",
