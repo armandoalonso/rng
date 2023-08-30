@@ -170,6 +170,15 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return null;
     }
 
+    _GetRandomToken(text, seperator) {
+      if (typeof text !== "string" ||  typeof seperator !== "string") return "";
+
+      const tokens = text.split(seperator);
+
+      if(tokens.length === 0) return "";
+      return tokens[Math.floor(this._rt.Random() * tokens.length)];
+    }
+
     _ShuffleCVS(csv) {
       const values = csv.split(",");
       for (let i = values.length - 1; i > 0; i--) {

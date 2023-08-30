@@ -538,6 +538,35 @@ module.exports = {
       displayText: "Get value of {1} Die in Roll with tag {0}",
       description: "Gets the value of a roll",
     },
+    GetRandomToken: {
+      category: "general",
+      forward: "_GetRandomToken",
+      autoScriptInterface: true,
+      highlight: true,
+      deprecated: false,
+      returnType: 'string',
+      isVariadicParameters: false,
+      params: [
+        {
+          "id": "text",
+          "name": "Text",
+          "desc": "The text to get a random token from",
+          "type": "string",
+          "value": ""
+        },
+        {
+          "id": "seperator",
+          "name": "Seperator",
+          "desc": "The seperator to use to split the text",
+          "type": "string",
+          "value": " ",
+        },
+      ],
+      listName: "Get Random Token",
+      displayText: "Get random token from {0} with seperator {1}",
+      description: "Gets a random token from a string",
+    },
+    },
     GetRandomFromCSV: {
       category: "general",
       forward: "_PickRandomFromCVS",
@@ -549,15 +578,15 @@ module.exports = {
       params: [
         {
           "id": "csv",
-          "name": "CSV",
-          "desc": "The CSV to get a random value from",
+          "name": "comma seperated string",
+          "desc": "The comma seperated string to get a random value from",
           "type": "string",
           "value": ""
         }
       ],
-      listName: "Get Random From CSV",
-      displayText: "Get random value from CSV {0}",
-      description: "Gets a random value from a CSV",
+      listName: "Get random from comma seperated string",
+      displayText: "Get random value from comma seperated string {0}",
+      description: "Gets a random value from a comma seperated string",
     },
     GetRandomFromCSVWeighted: {
       category: "general",
@@ -570,22 +599,22 @@ module.exports = {
       params: [
         {
           "id": "csv",
-          "name": "CSV",
-          "desc": "The CSV to get a random value from",
+          "name": "comma seperated string",
+          "desc": "The comma seperated string to get a random value from",
           "type": "string",
           "value": ""
         },
         {
           "id": "weights",
           "name": "Weights",
-          "desc": "The weights of the CSV values",
+          "desc": "The weights of the comma seperated string values",
           "type": "string",
           "value": ""
         }
       ],
-      listName: "Get Random From CSV Weighted",
-      displayText: "Get random value from CSV {0} with weights {1}",
-      description: "Gets a random value from a CSV with weights",
+      listName: "Get random from comma seperated string (Weighted)",
+      displayText: "Get random value from comma seperated string {0} with weights {1}",
+      description: "Gets a random value from a comma seperated string with weights",
     },
     RandomString: {
       category: "general",
