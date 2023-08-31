@@ -3,7 +3,7 @@ module.exports = {
   addonType: "plugin",
   id: "piranha305_rng",
   name: "RNG",
-  version: "1.0.0.2",
+  version: "1.0.0.3",
   category:
     "other",
   author: "piranha305",
@@ -143,11 +143,15 @@ module.exports = {
   ],
   aceCategories: {
     general: "General",
+    dice: "Dice",
+    data: "Data",
+    seed: "Seed",
+    position: "Position",
   },
   Acts: {
     SetSeed: {
-      category: "general",
-      forward: "_SetSeed",
+      category: "seed",
+      forward: "SetSeed",
       autoScriptInterface: true,
       deprecated: false,
       params: [
@@ -164,8 +168,8 @@ module.exports = {
       description: "Sets the seed to use for the RNG",
     },
     RollDice: {
-      category: "general",
-      forward: "_RollDiceWithTag",
+      category: "dice",
+      forward: "RollDiceWithTag",
       autoScriptInterface: true,
       deprecated: false,
       params: [
@@ -203,8 +207,8 @@ module.exports = {
       description: "Rolls a number of dice with a number of sides and adds a modifier",
     },
     LoadJsonData:{
-      category: "general",
-      forward: "_LoadJsonData",
+      category: "data",
+      forward: "LoadJsonData",
       autoScriptInterface: true,
       deprecated: false,
       params: [
@@ -225,15 +229,161 @@ module.exports = {
       ],
       listName: "Load JSON Data",
       displayText: "Load JSON Data {1} with tag ([b]{0}[/b])",
-      description: "Loads JSON data",
+      description: "Loads JSON data, That can be used for random selection",
+    },
+    PickRandomPositionInLayout: {
+      category: "position",
+      forward: "PickRandomPositionInLayout",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [],
+      listName: "Pick Random Position In Layout",
+      displayText: "Pick Random Position In Layout",
+      description: "Picks a random position in the layout, can access using RandomX and RandomY expressions",
+    },
+    PickRandomPositionInLayoutWithMargin: {
+      category: "position",
+      forward: "PickRandomPositionInLayoutWithMargin",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [
+        {
+          id: "margin",
+          name: "Margin",
+          desc: "The margin to use",
+          type: "number",
+          value: "0",
+        },
+      ],
+      listName: "Pick Random Position In Layout With Margin",
+      displayText: "Pick Random Position In Layout With Margin {0}",
+      description: "Picks a random position in the layout with a margin, can access using RandomX and RandomY expressions",
+    },
+    PickRandomPositionInViewport: {
+      category: "position",
+      forward: "PickRandomPositionInViewport",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [],
+      listName: "Pick Random Position In Viewport",
+      displayText: "Pick Random Position In Viewport",
+      description: "Picks a random position in the viewport, can access using RandomX and RandomY expressions",
+    },
+    PickRandomPositionInViewportWithMargin: {
+      category: "position",
+      forward: "PickRandomPositionInViewportWithMargin",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [
+        {
+          id: "margin",
+          name: "Margin",
+          desc: "The margin to use",
+          type: "number",
+          value: "0",
+        },
+      ],
+      listName: "Pick Random Position In Viewport With Margin",
+      displayText: "Pick Random Position In Viewport With Margin {0}",
+      description: "Picks a random position in the viewport with a margin, can access using RandomX and RandomY expressions",
+    },
+    GetRandomPositionInRect: {
+      category: "position",
+      forward: "GetRandomPositionInRect",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [
+        {
+          id: "left",
+          name: "Left",
+          desc: "The left of the rect",
+          type: "number",
+          value: "0",
+        },
+        {
+          id: "top",
+          name: "Top",
+          desc: "The top of the rect",
+          type: "number",
+          value: "0",
+        },
+        {
+          id: "right",
+          name: "Right",
+          desc: "The right of the rect",
+          type: "number",
+          value: "0",
+        },
+        {
+          id: "bottom",
+          name: "Bottom",
+          desc: "The bottom of the rect",
+          type: "number",
+          value: "0",
+        },
+      ],
+      listName: "Get Random Position In Rect",
+      displayText: "Get Random Position In Rect (left:{0}, top:{1}, right:{2}, bottom:{3})",
+      description: "Gets a random position in a rect",
+    },
+    PickRandomPositionInSprite: {
+      category: "position",
+      forward: "PickRandomPositionInSprite",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [
+        {
+          id: "sprite",
+          name: "Sprite",
+          desc: "The sprite to use",
+          type: "object",
+          allowedPluginIds: ["Sprite", "TiledBg"],
+        }
+      ],
+      listName: "Pick Random Position In Sprite",
+      displayText: "Pick Random Position In Sprite {0}",
+      description: "Picks a random position in a sprite, can access using RandomX and RandomY expressions",
+    },
+    PickRandomPositionInCircle: {
+      category: "position",
+      forward: "PickRandomPositionInCircle",
+      autoScriptInterface: true,
+      deprecated: false,
+      params: [
+        {
+          id: "x",
+          name: "X",
+          desc: "The x position of the center of circle",
+          type: "number",
+          value: "0",
+        },
+        {
+          id: "y",
+          name: "Y",
+          desc: "The y position of the center of circle",
+          type: "number",
+          value: "0",
+        },
+        {
+          id: "radius",
+          name: "Radius",
+          desc: "The radius of the circle",
+          type: "number",
+          value: "0",
+        },
+      ],
+      listName: "Pick Random Position In Circle",
+      displayText: "Pick Random Position In Circle (x:{0}, y:{1}, radius:{2})",
+      description: "Picks a random position in a circle, can access using RandomX and RandomY expressions",
     }
+
     /*
     SampleAction: {
       // The category of the action as it appears in the add action dialog
       category: "general",
 
       // Forward to the instance function name
-      forward: "_SampleAction",
+      forward: "SampleAction",
       // Or specify a handler function
       handler: `function () {
         // Your code here
@@ -247,7 +397,7 @@ module.exports = {
       autoScriptInterface: true,
 
       // Set to true to highlight the action in the add action dialog
-      highlight: true,
+      highlight: false,
 
       // Set to true to hide the action in the interface. False by default if not specified.
       deprecated: false,
@@ -321,7 +471,7 @@ module.exports = {
   Cnds: {
     Chance: {
       category: "general",
-      forward: "_Chance",
+      forward: "Chance",
       autoScriptInterface: true,
       params: [
         {
@@ -342,7 +492,7 @@ module.exports = {
       category: "general",
 
       // Forward to the instance function name
-      forward: "_SampleAction",
+      forward: "SampleAction",
       // Or specify a handler function
       handler: `function () {
         // Your code here
@@ -356,7 +506,7 @@ module.exports = {
       autoScriptInterface: true,
 
       // Set to true to highlight the condition in the add condition dialog
-      highlight: true,
+      highlight: false,
 
       // Set to true to hide the condition in the interface. False by default if not specified.
       deprecated: false,
@@ -434,10 +584,10 @@ module.exports = {
   },
   Exps: {
     Roll: {
-      category: "general",
-      forward: "_RollDice",
+      category: "dice",
+      forward: "RollDice",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'number',
       isVariadicParameters: false,
@@ -469,10 +619,10 @@ module.exports = {
       description: "Rolls a number of dice with a number of sides and adds a modifier",
     },
     GetDiceFromLastRoll:{
-      category: "general",
-      forward: "_GetDiceFromLastRoll",
+      category: "dice",
+      forward: "GetDiceFromLastRoll",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'number',
       isVariadicParameters: false,
@@ -490,10 +640,10 @@ module.exports = {
       description: "Gets a die from the last roll",
     },
     GetDiceRollSum : {
-      category: "general",
-      forward: "_GetDiceRollSum",
+      category: "dice",
+      forward: "GetDiceRollSum",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'number',
       isVariadicParameters: false,
@@ -511,10 +661,10 @@ module.exports = {
       description: "Gets the sum of a roll",
     },
     GetDiceRollValue : {
-      category: "general",
-      forward: "_GetDiceRollValue",
+      category: "dice",
+      forward: "GetDiceRollValue",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'number',
       isVariadicParameters: false,
@@ -540,9 +690,9 @@ module.exports = {
     },
     GetRandomToken: {
       category: "general",
-      forward: "_GetRandomToken",
+      forward: "GetRandomToken",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -566,12 +716,11 @@ module.exports = {
       displayText: "Get random token from {0} with seperator {1}",
       description: "Gets a random token from a string",
     },
-    },
     GetRandomFromCSV: {
       category: "general",
-      forward: "_PickRandomFromCVS",
+      forward: "PickRandomFromCVS",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -590,9 +739,9 @@ module.exports = {
     },
     GetRandomFromCSVWeighted: {
       category: "general",
-      forward: "_PickRandomFromCSVWeighted",
+      forward: "PickRandomFromCSVWeighted",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -617,10 +766,10 @@ module.exports = {
       description: "Gets a random value from a comma seperated string with weights",
     },
     RandomString: {
-      category: "general",
-      forward: "_RandomString",
+      category: "data",
+      forward: "RandomString",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -638,10 +787,10 @@ module.exports = {
       description: "Generates a random string",
     },
     RandomNumber: {
-      category: "general",
-      forward: "_RandomStringOnlyNumbers",
+      category: "data",
+      forward: "RandomStringOnlyNumbers",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -659,10 +808,10 @@ module.exports = {
       description: "Generates a random number",
     },
     RandomStringFromPool: {
-      category: "general",
-      forward: "_RandomStringFromPool",
+      category: "data",
+      forward: "RandomStringFromPool",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -686,11 +835,11 @@ module.exports = {
       displayText: "Generate random string from pool {0} of length {1}",
       description: "Generates a random string from a pool of characters",
     },
-    RandomFromJson: {
+    RandomFromJsonArray: {
       category: "general",
-      forward: "_PickRandomFromJsonArray",
+      forward: "PickRandomFromJsonArray",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -715,10 +864,10 @@ module.exports = {
       description: "Gets a random value from a JSON array",
     },
     Guid: {
-      category: "general",
-      forward: "_Guid",
+      category: "data",
+      forward: "Guid",
       autoScriptInterface: true,
-      highlight: true,
+      highlight: false,
       deprecated: false,
       returnType: 'string',
       isVariadicParameters: false,
@@ -727,13 +876,39 @@ module.exports = {
       displayText: "Generate Guid",
       description: "Generates a Guid",
     },
+    RandomX: {
+      category: "position",
+      forward: "RandomX",
+      autoScriptInterface: true,
+      highlight: false,
+      deprecated: false,
+      returnType: 'number',
+      isVariadicParameters: false,
+      params: [],
+      listName: "Random X",
+      displayText: "Random X",
+      description: "Gets the last random X position",
+    },
+    RandomY: {
+      category: "position",
+      forward: "RandomY",
+      autoScriptInterface: true,
+      highlight: false,
+      deprecated: false,
+      returnType: 'number',
+      isVariadicParameters: false,
+      params: [],
+      listName: "Random Y",
+      displayText: "Random Y",
+      description: "Gets the last random Y position",
+    },
     /*
     SampleExpression: {
       // The category of the action as it appears in the expression picker
       category: "general",
 
       // Forward to the instance function name
-      forward: "_SampleAction",
+      forward: "SampleAction",
       // Or specify a handler function
       handler: `function () {
         // Your code here
@@ -746,7 +921,7 @@ module.exports = {
       autoScriptInterface: true,
 
       // Set to true to highlight the expression in the expression picker
-      highlight: true,
+      highlight: false,
 
       // Set to true to hide the expression in the interface. False by default if not specified.
       deprecated: false,
