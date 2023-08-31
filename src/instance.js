@@ -13,11 +13,13 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this.rng = null;
       this.replace_system_seed = false;
       this.seed = null;
-      this._last_dice_results = [];
-      this._last_modifiers = 0;
-      this._rt = this.GetRuntime();
-      this._dice_roll = {};
+      this.last_dice_results = [];
+      this.last_modifiers = 0;
+      this.runtime = this.GetRuntime();
+      this.dice_roll = {};
       this.json_data = {};
+      this.position = {x: 0, y: 0};
+
 
       if (properties) {
         this.replace_system_seed = properties[0];
@@ -28,136 +30,136 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         this.seed = this._RandomSeed(10);
       }
 
-      this._SetRNG(this.seed);
+      this.SetRNG(this.seed);
 
       if (this.replace_system_seed) {
-        this._rt.SetRandomNumberGeneratorCallback(() => this.rng.random());
+        this.runtime.SetRandomNumberGeneratorCallback(() => this.rng.random());
       }
     }
 
-    _RollDice(numDice, numSides, modifier) {
+    RollDice(numDice, numSides, modifier) {
       const results = [];
       for (let i = 0; i < numDice; i++) {
-        const roll = Math.floor(this._rt.Random() * numSides) + 1;
+        const roll = Math.floor(this.runtime.Random() * numSides) + 1;
         results.push(roll);
       }
 
       if (modifier && modifier !== 0) {
-        this._last_modifiers = modifier;
+        this.last_modifiers = modifier;
       }
       
       // save result array for future access
-      this._last_dice_results = results;
+      this.last_dice_results = results;
 
       // get total of all rolls & modifier
-      const sum = results.reduce((acc, val) => acc + val, 0) + this._last_modifiers;
+      const sum = results.reduce((acc, val) => acc + val, 0) + this.last_modifiers;
       return sum;
     }
 
-    _RollDiceWithTag(numDice, numSides, modifier, tag) {
+    RollDiceWithTag(numDice, numSides, modifier, tag) {
       // rolls dice and saves result array with tag
       const _ = this._RollDice(numDice, numSides, modifier);
-      this._dice_roll[tag] = this._last_dice_results; 
+      this.dice_roll[tag] = this.last_dice_results; 
     }
 
-    _GetDiceFromLastRoll(index) {
-      if (index < 0 || index >= this._last_dice_results.length) {
+    GetDiceFromLastRoll(index) {
+      if (index < 0 || index >= this.last_dice_results.length) {
         return 0;
       }
-      return this._last_dice_results[index];
+      return this.last_dice_results[index];
     }
 
-    _GetModifierFromLastRoll() {
-      return this._last_modifiers;
+    GetModifierFromLastRoll() {
+      return this.last_modifiers;
     }
 
-    _GetDiceRollSum(tag) {
+    GetDiceRollSum(tag) {
       // if tag is empty, return sum of last dice roll
       if (tag === "") {
-        return this._last_dice_results.reduce((acc, val) => acc + val, 0);
+        return this.last_dice_results.reduce((acc, val) => acc + val, 0);
       }
 
       // if tag does not exist, return 0 and throw warning
-      if (!this._dice_roll[tag]) {
+      if (!this.dice_roll[tag]) {
         console.warn(`Dice tag "${tag}" does not exist.`);
         return 0;
       }
 
       // return sum of dice roll with tag
-      return this._dice_roll[tag].reduce((acc, val) => acc + val, 0);
+      return this.dice_roll[tag].reduce((acc, val) => acc + val, 0);
     }
 
-    _GetDiceRollValue(tag, index) {
+    GetDiceRollValue(tag, index) {
       // if tag is empty, return value of last dice roll
       if (tag === "") {
         return this._GetDiceFromLastRoll(index);
       }
 
       // if tag does not exist, return 0 and throw warning
-      if (!this._dice_roll[tag]) {
+      if (!this.dice_roll[tag]) {
         console.warn(`Dice tag "${tag}" does not exist.`);
         return 0;
       }
 
       // if index is out of range, return 0 and throw warning
-      if (index < 0 || index >= this._dice_roll[tag].length) {
+      if (index < 0 || index >= this.dice_roll[tag].length) {
         console.warn(`Dice index "${index}" is out of range.`);
         return 0;
       }
 
       // return value of dice roll with tag
-      return this._dice_roll[tag][index];
+      return this.dice_roll[tag][index];
     }
 
-    _Chance(percent) {
-      const roll = this._rt.Random() * 100;
+    Chance(percent) {
+      const roll = this.runtime.Random() * 100;
       return roll < percent;
     }
 
-    _RandomFloat(min, max) {
-      return this._rt.Random() * (max - min) + min;
+    RandomFloat(min, max) {
+      return this.runtime.Random() * (max - min) + min;
     }
 
-    _RandomString(length) {
-      return this._RandomStringFromPool(length, this.CHAR_LOWERCASE);
+    RandomString(length) {
+      return this.RandomStringFromPool(length, this.CHAR_LOWERCASE);
     }
 
-    _RandomStringOnlyNumbers(length) {
-      return this._RandomStringFromPool(length, this.NUMBERS);
+    RandomStringOnlyNumbers(length) {
+      return this.RandomStringFromPool(length, this.NUMBERS);
     }
 
-    _RandomStringWithNumbers(length) {
-      return this._RandomStringFromPool(length, this.CHAR_LOWERCASE + this.NUMBERS);
+    RandomStringWithNumbers(length) {
+      return this.RandomStringFromPool(length, this.CHAR_LOWERCASE + this.NUMBERS);
     }
 
-    _RandomStringWithNumbersAndSpecialChars(length) {
-      return this._RandomStringFromPool(length, this.CHAR_LOWERCASE + this.NUMBERS + this.SPECIAL_CHARS);
+    RandomStringWithNumbersAndSpecialChars(length) {
+      return this.RandomStringFromPool(length, this.CHAR_LOWERCASE + this.NUMBERS + this.SPECIAL_CHARS);
     }
 
-    _RandomStringWithSpecialChars(length) {
-      return this._RandomStringFromPool(length, this.CHAR_LOWERCASE + this.SPECIAL_CHARS);
+    RandomStringWithSpecialChars(length) {
+      return this.RandomStringFromPool(length, this.CHAR_LOWERCASE + this.SPECIAL_CHARS);
     }
 
-    _RandomStringFromPool(length, pool) {
+    RandomStringFromPool(length, pool) {
       let result = "";
       for (let i = 0; i < length; i++) {
-        result += pool[Math.floor(this._rt.Random() * pool.length)];
+        result += pool[Math.floor(this.runtime.Random() * pool.length)];
       }
       return result;
     }
 
-    _PickRandomFromCVS(csv) {
+    PickRandomFromCVS(csv) {
       const values = csv.split(",");
-      return values[Math.floor(this._rt.Random() * values.length)];
+      return values[Math.floor(this.runtime.Random() * values.length)];
     }
 
-    _PickRandomFromCSVWeighted(csv, weights) {
+    PickRandomFromCSVWeighted(csv, weights) {
       const values = csv.split(",");
       const weightValues = weights.split(",");
 
       const weightNumbers = weightValues.map(Number);
       const totalWeight = weightNumbers.reduce((acc, val) => acc + val, 0);
-      const random = Math.floor(this._rt.Random() * totalWeight);
+      const random = Math.floor(this.runtime.Random() * totalWeight);
 
       let weightSum = 0;
       for (let i = 0; i < weightNumbers.length; i++) {
@@ -170,16 +172,109 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return null;
     }
 
-    _ShuffleCVS(csv) {
+    PickRandomPositionInLayout() {
+      const layout = this.runtime.GetMainRunningLayout();
+      const width = layout.GetWidth();
+      const height = layout.GetHeight();
+
+      this.position.x = Math.floor(this.runtime.Random() * width);
+      this.position.y = Math.floor(this.runtime.Random() * height);
+    }
+
+    PickRandomPositionInLayoutWithMargin(margin) {
+      const layout = this.runtime.GetMainRunningLayout();
+      const width = layout.GetWidth();
+      const height = layout.GetHeight();
+
+      this.position.x = Math.floor(this.runtime.Random() * (width - margin * 2)) + margin;
+      this.position.y = Math.floor(this.runtime.Random() * (height - margin * 2)) + margin;
+    }
+
+    PickRandomPositionInViewport() {
+      const layout = this.runtime.GetMainRunningLayout();
+      const viewport = layout.GetLayerByIndex(0).GetViewport();
+      
+      const left = viewport.getLeft();
+      const top = viewport.getTop();
+      const right = viewport.getRight();
+      const bottom = viewport.getBottom();
+
+      this.GetRandomPositionInRect(left, top, right, bottom);
+    }
+
+    PickRandomPositionInViewportWithMargin(margin) {
+      const layout = this.runtime.GetMainRunningLayout();
+      const viewport = layout.GetLayerByIndex(0).GetViewport();
+
+      const left = viewport.getLeft() + margin;
+      const top = viewport.getTop() + margin;
+      const right = viewport.getRight() - margin;
+      const bottom = viewport.getBottom() - margin;
+
+      this.GetRandomPositionInRect(left, top, right, bottom);
+    }
+
+    GetRandomPositionInRect(left, top, right, bottom) {
+      const width = right - left;
+      const height = bottom - top;
+
+      this.position.x = Math.floor(this.runtime.Random() * width) + left;
+      this.position.y = Math.floor(this.runtime.Random() * height) + top;
+    }
+
+    PickRandomPositionInSprite(sprite) {
+      debugger;
+      const picked = sprite.GetFirstPicked();
+      if (picked == null) {
+        this.position.x = 0;
+        this.position.y = 0;
+        return
+      }
+      
+      const wi = picked.GetWorldInfo();
+      const bbox = wi.GetBoundingBox();
+      this.GetRandomPositionInRect(bbox.getLeft(), bbox.getTop(), bbox.getRight(), bbox.getBottom());
+    }
+
+    PickRandomPositionInCircle(x, y, radius) {
+      const angle = this.runtime.Random() * Math.PI * 2;
+      const r = Math.sqrt(this.runtime.Random()) * radius;
+      this.position.x = x + r * Math.cos(angle);
+      this.position.y = y + r * Math.sin(angle);
+    }
+
+    RandomX() {
+      return this.position.x;
+    }
+
+    RandomY() {
+      return this.position.y;
+    }
+
+    GetRandomToken(text, seperator) {
+      if (typeof text !== "string" ||  typeof seperator !== "string") return "";
+
+      const tokens = text.split(seperator);
+
+      if(tokens.length === 0) return "";
+      return tokens[Math.floor(this.runtime.Random() * tokens.length)];
+    }
+
+    ShuffleCVS(csv) {
       const values = csv.split(",");
       for (let i = values.length - 1; i > 0; i--) {
-        const j = Math.floor(this._rt.Random() * (i + 1));
+        const j = Math.floor(this.runtime.Random() * (i + 1));
         [values[i], values[j]] = [values[j], values[i]];
       }
       return values.join(",");
     }
 
-    _LoadJsonData(tag, json) {
+    LoadJsonData(tag, json) {
+
+      if( typeof tag !== "string" || typeof json !== "string") return;
+
+      if(tag === "") tag = "default";
+
       if(this.json_data[tag] === undefined) {
         this.json_data[tag] = {};
       }
@@ -187,7 +282,9 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       this.json_data[tag] = JSON.parse(json);
     }
 
-    _ParseJsoKey(tag, key) {
+    ParseJsonKey(tag, key) {
+      if(tag === "") tag = "default";
+
       if(this.json_data[tag] === undefined) {
         console.warn(`JSON tag "${tag}" does not exist.`);
         return null;
@@ -205,27 +302,29 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return value;
     }
 
-    _PickRandomFromJsonArray(tag, path) {
+    PickRandomFromJsonArray(tag, path) {
+      if(tag === "") tag = "default";
+
       if(this.json_data[tag] === undefined) {
         console.warn(`JSON tag "${tag}" does not exist.`);
         return null;
       }
-      const values = this._ParseJsoKey(tag, path);
+      const values = this.ParseJsonKey(tag, path);
 
       if (values === null) {
         console.warn(`JSON path "${path}" does not exist.`);
         return "";
       }
 
-      return values[Math.floor(this._rt.Random() * values.length)];
+      return values[Math.floor(this.runtime.Random() * values.length)];
     }
 
-    _Guid() {
-      const s4 = () => Math.floor((1 + this._rt.Random()) * 0x10000).toString(16).substring(1);
+    Guid() {
+      const s4 = () => Math.floor((1 + this.runtime.Random()) * 0x10000).toString(16).substring(1);
       return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4();
     }
 
-    _RandomSeed(length){
+    RandomSeed(length){
       const pool = this.CHAR_LOWERCASE + this.NUMBERS;
       let result = "";
       for (let i = 0; i < length; i++) {
@@ -234,7 +333,7 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return result;
     }
 
-    _SetSeed(seed, replace_system_seed) {
+    SetSeed(seed, replace_system_seed) {
       this.seed = seed;
       this.replace_system_seed = replace_system_seed;
 
@@ -242,17 +341,17 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
         this.seed = this._RandomSeed(10);
       }
 
-      this._SetRNG(this.seed);
+      this.SetRNG(this.seed);
       
       if (this.replace_system_seed) {
-        this._rt.SetRandomNumberGeneratorCallback(() => this.rng.random());
+        this.runtime.SetRandomNumberGeneratorCallback(() => this.rng.random());
       }
       else {
-        this._rt.SetRandomNumberGeneratorCallback(() => Math.random());
+        this.runtime.SetRandomNumberGeneratorCallback(() => Math.random());
       }
     }
 
-    _SetRNG(seed) {
+    SetRNG(seed) {
       this.rng = new this.mersenneTwister(seed);
     }
 
@@ -262,17 +361,17 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
 
     SaveToJson() {
       return {
-        last_dice_roll : this._last_dice_results,
-        _last_modifiers : this._last_modifiers,
-        dice_roll : this._dice_roll,
+        lastdice_roll : this.last_dice_results,
+        last_modifiers : this.last_modifiers,
+        dice_roll : this.dice_roll,
         json_data : this.json_data
       };
     }
 
     LoadFromJson(o) {
-      this._last_dice_results = o["last_dice_roll"];
-      this._dice_roll = o["dice_roll"];
-      this._last_modifiers = o["_last_modifiers"];
+      this.last_dice_results = o["lastdice_roll"];
+      this.dice_roll = o["dice_roll"];
+      this.last_modifiers = o["last_modifiers"];
       this.json_data = o["json_data"];
     }
 
@@ -281,24 +380,24 @@ function getInstanceJs(parentClass, scriptInterface, addonTriggers, C3) {
       return [{
           title: "$" + this.GetPluginType().GetName(),
           properties: [{
-              name: prefix + ".debugger.last_dice_roll",
-              value: this._last_dice_results.join(", "),
+              name: prefix + ".debugger.lastdice_roll",
+              value: this.last_dice_results.join(", "),
               onedit: v=>{
-                this._last_dice_results = v.split(",").map(x=>parseInt(x));
+                this.last_dice_results = v.split(",").map(x=>parseInt(x));
               }
           },
           {
             name: prefix + ".debugger.dice_roll",
-            value: JSON.stringify(this._dice_roll),
+            value: JSON.stringify(this.dice_roll),
             onedit: v=>{
-              this._dice_roll = JSON.parse(v);
+              this.dice_roll = JSON.parse(v);
             }
           },
           {
             name: prefix + ".debugger.last_dice_modifiers",
-            value: this._last_modifiers,
+            value: this.last_modifiers,
             onedit: v=>{
-              this._last_modifiers = parseInt(v);
+              this.last_modifiers = parseInt(v);
             }
           },  
           {
