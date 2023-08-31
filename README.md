@@ -5,7 +5,7 @@ Provides random utilities Actions / Conditions / Expressions for Construct 3, in
 Author: piranha305 <br>
 Website: https://piranha305.itch.io/ <br>
 Addon Url: https://www.construct.net/en/make-games/addons/1075/rng <br>
-Download Latest Version : [Version: 1.0.0.2](https://github.com/armandoalonso/rng/releases/latest) <br>
+Download Latest Version : [Version: 1.0.0.3](https://github.com/armandoalonso/rng/releases/latest) <br>
 <sub>Made using [c3ide2-framework](https://github.com/ConstructFund/c3ide2-framework) </sub><br>
 
 ## Table of Contents
@@ -40,6 +40,8 @@ The main files you may want to look at would be instance.js and scriptInterface.
 </br>
 <img src="./examples/piranha305_rng_exmaple.gif" width="200" />
 </br>
+<img src="./examples/piranha305_rng_exmaple2.gif" width="200" />
+</br>
 
 ---
 ## Properties
@@ -55,7 +57,14 @@ The main files you may want to look at would be instance.js and scriptInterface.
 | --- | --- | --- |
 | Set Seed | Sets the seed to use for the RNG | Seed             *(string)* <br> |
 | Roll Dice | Rolls a number of dice with a number of sides and adds a modifier | Number of Dice             *(number)* <br>Number of Sides             *(number)* <br>Modifier             *(number)* <br>Tag             *(string)* <br> |
-| Load JSON Data | Loads JSON data | Tag             *(string)* <br>JSON             *(string)* <br> |
+| Load JSON Data | Loads JSON data, That can be used for random selection | Tag             *(string)* <br>JSON             *(string)* <br> |
+| Pick Random Position In Layout | Picks a random position in the layout, can access using RandomX and RandomY expressions |  |
+| Pick Random Position In Layout With Margin | Picks a random position in the layout with a margin, can access using RandomX and RandomY expressions | Margin             *(number)* <br> |
+| Pick Random Position In Viewport | Picks a random position in the viewport, can access using RandomX and RandomY expressions |  |
+| Pick Random Position In Viewport With Margin | Picks a random position in the viewport with a margin, can access using RandomX and RandomY expressions | Margin             *(number)* <br> |
+| Get Random Position In Rect | Gets a random position in a rect | Left             *(number)* <br>Top             *(number)* <br>Right             *(number)* <br>Bottom             *(number)* <br> |
+| Pick Random Position In Sprite | Picks a random position in a sprite, can access using RandomX and RandomY expressions | Sprite             *(object)* <br> |
+| Pick Random Position In Circle | Picks a random position in a circle, can access using RandomX and RandomY expressions | X             *(number)* <br>Y             *(number)* <br>Radius             *(number)* <br> |
 
 
 ---
@@ -73,10 +82,13 @@ The main files you may want to look at would be instance.js and scriptInterface.
 | GetDiceFromLastRoll | Gets a die from the last roll | number | Index *(number)* <br> | 
 | GetDiceRollSum | Gets the sum of a roll | number | Tag *(string)* <br> | 
 | GetDiceRollValue | Gets the value of a roll | number | Tag *(string)* <br>Index *(number)* <br> | 
-| GetRandomFromCSV | Gets a random value from a CSV | string | CSV *(string)* <br> | 
-| GetRandomFromCSVWeighted | Gets a random value from a CSV with weights | string | CSV *(string)* <br>Weights *(string)* <br> | 
+| GetRandomToken | Gets a random token from a string | string | Text *(string)* <br>Seperator *(string)* <br> | 
+| GetRandomFromCSV | Gets a random value from a comma seperated string | string | comma seperated string *(string)* <br> | 
+| GetRandomFromCSVWeighted | Gets a random value from a comma seperated string with weights | string | comma seperated string *(string)* <br>Weights *(string)* <br> | 
 | RandomString | Generates a random string | string | Length *(number)* <br> | 
 | RandomNumber | Generates a random number | string | Length *(number)* <br> | 
 | RandomStringFromPool | Generates a random string from a pool of characters | string | Length *(number)* <br>Pool *(string)* <br> | 
-| RandomFromJson | Gets a random value from a JSON array | string | Tag *(string)* <br>Path *(string)* <br> | 
+| RandomFromJsonArray | Gets a random value from a JSON array | string | Tag *(string)* <br>Path *(string)* <br> | 
 | Guid | Generates a Guid | string |  | 
+| RandomX | Gets the last random X position | number |  | 
+| RandomY | Gets the last random Y position | number |  | 
