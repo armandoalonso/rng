@@ -1,0 +1,460 @@
+{
+  "languageTag": "en-US",
+  "fileDescription": "Strings for piranha305_rng.",
+  "text": {
+    "plugins": {
+      "piranha305_rng": {
+        "name": "RNG",
+        "description": "Provides random utilities Actions / Conditions / Expressions for Construct 3, include a Seperate Random Number Generator based on Mersenne Twister",
+        "help-url": "https://www.construct.net",
+        "aceCategories": {
+          "dice": "Dice",
+          "settings": "Settings",
+          "world": "World",
+          "general": "General"
+        },
+        "properties": {
+          "seed": {
+            "name": "Seed",
+            "desc": "Seed for the random number generator"
+          }
+        },
+        "actions": {
+          "ClearDiceRollHistory": {
+            "list-name": "Clear Dice Roll History",
+            "display-text": "Clear Dice Roll History",
+            "description": "Clears the dice roll history",
+            "params": {}
+          },
+          "RollDice": {
+            "list-name": "Roll Dice",
+            "display-text": "Roll {0}d{1}+{2} with tag ({3})",
+            "description": "Rolls a number of dice with a number of sides and adds a modifier",
+            "params": {
+              "numDice": {
+                "name": "Number of Dice",
+                "desc": "The number of dice to roll"
+              },
+              "numSides": {
+                "name": "Number of Sides",
+                "desc": "The number of sides on each die"
+              },
+              "modifier": {
+                "name": "Modifier",
+                "desc": "The modifier to add to the roll"
+              },
+              "tag": {
+                "name": "Tag",
+                "desc": "Tag of the dice"
+              }
+            }
+          },
+          "RandomizeSeed": {
+            "list-name": "RandomSeed",
+            "display-text": "RandomSeed",
+            "description": "Generates a random seed",
+            "params": {}
+          },
+          "SetSeed": {
+            "list-name": "SetSeed",
+            "display-text": "Set seed to {0}",
+            "description": "Sets the seed to use for the RNG",
+            "params": {
+              "seed": {
+                "name": "Seed",
+                "desc": "The seed to use for the RNG"
+              }
+            }
+          },
+          "PickRandomPointInCircle": {
+            "list-name": "Pick Random Point In Circle",
+            "display-text": "Pick Random Point In Circle (Origin{0},{1}, Radius: {2} Edge:{3})",
+            "description": "Picks a random point in a circle, can access using RandomX and RandomY expressions",
+            "params": {
+              "centerX": {
+                "name": "Center X",
+                "desc": "The center X position"
+              },
+              "centerY": {
+                "name": "Center Y",
+                "desc": "The center Y position"
+              },
+              "radius": {
+                "name": "Radius",
+                "desc": "The radius of the circle"
+              },
+              "edge": {
+                "name": "Edge",
+                "desc": "Whether to pick a point on the edge of the circle"
+              }
+            }
+          },
+          "PickRandomPositionInLayout": {
+            "list-name": "Pick Random Position In Layout",
+            "display-text": "Pick Random Position In Layout",
+            "description": "Picks a random position in the layout, can access using RandomX and RandomY expressions",
+            "params": {}
+          },
+          "PickRandomPositionInLayoutWithMargin": {
+            "list-name": "Pick Random Position In Layout With Margin",
+            "display-text": "Pick Random Position In Layout With Margin {0} {1} {2} {3}",
+            "description": "Picks a random position in the layout with a margin, can access using RandomX and RandomY expressions",
+            "params": {
+              "left": {
+                "name": "Left",
+                "desc": "The left margin"
+              },
+              "right": {
+                "name": "Right",
+                "desc": "The right margin"
+              },
+              "top": {
+                "name": "Top",
+                "desc": "The top margin"
+              },
+              "bottom": {
+                "name": "Bottom",
+                "desc": "The bottom margin"
+              }
+            }
+          },
+          "PickRandomPositionInRect": {
+            "list-name": "Pick Random Position In Rect",
+            "display-text": "Pick Random Position In Rect {0} {1} {2} {3}",
+            "description": "Picks a random position in a rectangle, can access using RandomX and RandomY expressions",
+            "params": {
+              "left": {
+                "name": "Left",
+                "desc": "The left position"
+              },
+              "top": {
+                "name": "Top",
+                "desc": "The top position"
+              },
+              "right": {
+                "name": "Right",
+                "desc": "The right position"
+              },
+              "bottom": {
+                "name": "Bottom",
+                "desc": "The bottom position"
+              }
+            }
+          },
+          "PickRandomPositionInSprite": {
+            "list-name": "Pick Random Position In Sprite",
+            "display-text": "Pick Random Position In Sprite {0}, Edge: {1}",
+            "description": "Picks a random position in a sprite, can access using RandomX and RandomY expressions",
+            "params": {
+              "sprite": {
+                "name": "Sprite",
+                "desc": "The sprite to use"
+              },
+              "edge": {
+                "name": "Edge",
+                "desc": "Whether to pick a point on the edge of the sprite"
+              }
+            }
+          },
+          "PickRandomPositionInViewport": {
+            "list-name": "Pick Random Position In Viewport",
+            "display-text": "Pick Random Position In Viewport",
+            "description": "Picks a random position in the viewport, can access using RandomX and RandomY expressions",
+            "params": {}
+          },
+          "PickRandomPositionInViewportWithMargin": {
+            "list-name": "Pick Random Position In Viewport With Margin",
+            "display-text": "Pick Random Position In Viewport With Margin {0} {1} {2} {3}",
+            "description": "Picks a random position in the viewport with a margin, can access using RandomX and RandomY expressions",
+            "params": {
+              "left": {
+                "name": "Left",
+                "desc": "The left margin"
+              },
+              "right": {
+                "name": "Right",
+                "desc": "The right margin"
+              },
+              "top": {
+                "name": "Top",
+                "desc": "The top margin"
+              },
+              "bottom": {
+                "name": "Bottom",
+                "desc": "The bottom margin"
+              }
+            }
+          }
+        },
+        "conditions": {
+          "ForEachRolledDice": {
+            "list-name": "For Each Rolled Dice",
+            "display-text": "For each rolled dice",
+            "description": "Triggered for each dice rolled",
+            "params": {}
+          },
+          "OnDiceRoll": {
+            "list-name": "On Dice Roll",
+            "display-text": "On dice roll",
+            "description": "Triggered when a dice is rolled",
+            "params": {}
+          },
+          "Chance": {
+            "list-name": "Chance",
+            "display-text": "{0}% Chance ",
+            "description": "if a random chance is true",
+            "params": {
+              "likelihood": {
+                "name": "Likelihood",
+                "desc": "The likelihood of the condition being true (0-100)%"
+              }
+            }
+          }
+        },
+        "expressions": {
+          "DiceRollDiceId": {
+            "translated-name": "DiceRollDiceId",
+            "description": "Get the dice id of a dice roll",
+            "params": {
+              "tag": {
+                "name": "Tag",
+                "desc": "The tag of the dice roll"
+              }
+            }
+          },
+          "DiceRollModifier": {
+            "translated-name": "DiceRollModifier",
+            "description": "Get the modifier of a dice roll",
+            "params": {
+              "tag": {
+                "name": "Tag",
+                "desc": "The tag of the dice roll"
+              }
+            }
+          },
+          "DiceRollSum": {
+            "translated-name": "DiceRollSum",
+            "description": "Get the sum of a dice roll",
+            "params": {
+              "tag": {
+                "name": "Tag",
+                "desc": "The tag of the dice roll"
+              }
+            }
+          },
+          "DiceRollValue": {
+            "translated-name": "DiceRollValue",
+            "description": "Get the value of a dice roll",
+            "params": {
+              "tag": {
+                "name": "Tag",
+                "desc": "The tag of the dice roll"
+              },
+              "index": {
+                "name": "Index",
+                "desc": "The index of the dice to get the value of"
+              }
+            }
+          },
+          "LastDiceRollDiceId": {
+            "translated-name": "LastDiceRollDiceId",
+            "description": "Get the dice id of the last dice roll",
+            "params": {}
+          },
+          "LastDiceRollDiceValue": {
+            "translated-name": "LastDiceRollDiceValue",
+            "description": "Get the value of a dice in the last dice roll",
+            "params": {
+              "index": {
+                "name": "Index",
+                "desc": "The index of the dice to get the value of"
+              }
+            }
+          },
+          "LastDiceRollModifier": {
+            "translated-name": "LastDiceRollModifier",
+            "description": "Get the modifier of the last dice roll",
+            "params": {}
+          },
+          "LastDiceRollSum": {
+            "translated-name": "LastDiceRollSum",
+            "description": "Get the sum of the last dice roll",
+            "params": {}
+          },
+          "LoopDiceValue": {
+            "translated-name": "LoopDiceValue",
+            "description": "Get the value of the dice in the loop",
+            "params": {}
+          },
+          "PerlinNoise2D": {
+            "translated-name": "PerlinNoise2D",
+            "description": "Get a 2D Perlin noise value",
+            "params": {
+              "x": {
+                "name": "X",
+                "desc": "The X position"
+              },
+              "y": {
+                "name": "Y",
+                "desc": "The Y position"
+              },
+              "resolution": {
+                "name": "Resolution",
+                "desc": "The resolution of the noise"
+              }
+            }
+          },
+          "RandomChoice": {
+            "translated-name": "RandomChoice",
+            "description": "Get a random choice from a list",
+            "params": {
+              "list": {
+                "name": "List",
+                "desc": "The list of choices, separated by commas"
+              }
+            }
+          },
+          "RandomChoiceWeighted": {
+            "translated-name": "RandomChoiceWeighted",
+            "description": "Get a random weighted choice from a list",
+            "params": {
+              "list": {
+                "name": "List",
+                "desc": "The list of choices, separated by commas"
+              },
+              "weights": {
+                "name": "Weights",
+                "desc": "The list of weights, separated by commas"
+              }
+            }
+          },
+          "RandomFloat": {
+            "translated-name": "RandomFloat",
+            "description": "Get a random float",
+            "params": {
+              "min": {
+                "name": "Min",
+                "desc": "The minimum value"
+              },
+              "max": {
+                "name": "Max",
+                "desc": "The maximum value"
+              }
+            }
+          },
+          "RandomInt": {
+            "translated-name": "RandomInt",
+            "description": "Get a random integer",
+            "params": {
+              "min": {
+                "name": "Min",
+                "desc": "The minimum value"
+              },
+              "max": {
+                "name": "Max",
+                "desc": "The maximum value"
+              }
+            }
+          },
+          "RandomNormal": {
+            "translated-name": "RandomNormal",
+            "description": "Get a random number from a normal distribution",
+            "params": {
+              "mean": {
+                "name": "Mean",
+                "desc": "The mean of the distribution"
+              },
+              "stdDev": {
+                "name": "Standard Deviation",
+                "desc": "The standard deviation of the distribution"
+              }
+            }
+          },
+          "RandomNumber": {
+            "translated-name": "RandomNumber",
+            "description": "Get a random number",
+            "params": {
+              "length": {
+                "name": "Length",
+                "desc": "The length of the number"
+              }
+            }
+          },
+          "RandomSign": {
+            "translated-name": "RandomSign",
+            "description": "Get a random sign (-1 or 1)",
+            "params": {}
+          },
+          "RandomString": {
+            "translated-name": "RandomString",
+            "description": "Get a random string",
+            "params": {
+              "length": {
+                "name": "Length",
+                "desc": "The length of the string"
+              }
+            }
+          },
+          "RandomToken": {
+            "translated-name": "RandomToken",
+            "description": "Get a random token",
+            "params": {
+              "list": {
+                "name": "List",
+                "desc": "The list to get token from, comma separated"
+              }
+            }
+          },
+          "RandomUUID": {
+            "translated-name": "RandomUUID",
+            "description": "Get a random UUID",
+            "params": {}
+          },
+          "Shuffle": {
+            "translated-name": "Shuffle",
+            "description": "Shuffle a comma seperated list",
+            "params": {
+              "list": {
+                "name": "List",
+                "desc": "The list to shuffle, comma separated"
+              }
+            }
+          },
+          "SimplexNoise2D": {
+            "translated-name": "SimplexNoise2D",
+            "description": "Get a 2D Simplex noise value",
+            "params": {
+              "x": {
+                "name": "X",
+                "desc": "The X position"
+              },
+              "y": {
+                "name": "Y",
+                "desc": "The Y position"
+              },
+              "resolution": {
+                "name": "Resolution",
+                "desc": "The resolution of the noise"
+              }
+            }
+          },
+          "Seed": {
+            "translated-name": "Seed",
+            "description": "Get the seed used for the RNG",
+            "params": {}
+          },
+          "LastX": {
+            "translated-name": "LastX",
+            "description": "Gets the last random X position",
+            "params": {}
+          },
+          "LastY": {
+            "translated-name": "LastY",
+            "description": "Gets the last random Y position",
+            "params": {}
+          }
+        }
+      }
+    }
+  }
+}
