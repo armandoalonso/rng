@@ -1,4 +1,4 @@
-<img src="./examples/cover.png" width="150" /><br>
+<img src="./examples/cover.png?" width="150" /><br>
 # RNG
 <i>Provides random utilities Actions / Conditions / Expressions for Construct 3, include a Seperate Random Number Generator based on Mersenne Twister</i> <br>
 ### Version 2.0.0.0
