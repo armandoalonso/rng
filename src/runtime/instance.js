@@ -432,5 +432,15 @@ export default function (parentClass) {
     _loadFromJson(o) {
       // load state for savegames
     }
+
+    _getDebuggerProperties()
+    {
+      return [{
+        title: "piranha305.rng",
+        properties: [
+          {name: "$seed",	value: this.seed,	onedit: v => this.setSeed(v)},
+        ]
+      }];
+    }
   };
 }

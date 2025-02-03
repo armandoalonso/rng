@@ -69,7 +69,6 @@ class Grad {
 
       // make sure seed is positive
       seed = Math.abs(seed);
-      debugger;
       this.seed(seed);
     }
   

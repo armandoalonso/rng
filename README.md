@@ -1,9 +1,9 @@
-<img src="./examples/cover.png?" width="150" /><br>
+<img src="./examples/cover.png" width="150" /><br>
 # RNG
 <i>Provides random utilities Actions / Conditions / Expressions for Construct 3, include a Seperate Random Number Generator based on Mersenne Twister</i> <br>
-### Version 2.0.0.0
+### Version 2.0.0.1
 
-[<img src="https://placehold.co/200x50/4493f8/FFF?text=Download&font=montserrat" width="200"/>](https://github.com/armandoalonso/rng/releases/download/piranha305_rng-2.0.0.0.c3addon/piranha305_rng-2.0.0.0.c3addon)
+[<img src="https://placehold.co/200x50/4493f8/FFF?text=Download&font=montserrat" width="200"/>](https://github.com/armandoalonso/rng/releases/download/piranha305_rng-2.0.0.1.c3addon/piranha305_rng-2.0.0.1.c3addon)
 <br>
 <sub> [See all releases](https://github.com/armandoalonso/rng/releases) </sub> <br>
 
